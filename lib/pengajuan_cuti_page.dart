@@ -259,12 +259,12 @@ class _PengajuanCutiState extends State<PengajuanCuti> {
       body: Container(
         // padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
-            ),
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
           ),
+        ),
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Form(
@@ -320,7 +320,7 @@ class _PengajuanCutiState extends State<PengajuanCuti> {
                     UpperCaseTextFormatter(), // Formatter untuk huruf besar
                   ],
                 ),
-        
+
                 const SizedBox(height: 16),
                 const Text(
                   "Departemen/Bagian",
@@ -351,7 +351,7 @@ class _PengajuanCutiState extends State<PengajuanCuti> {
                     return null;
                   },
                 ),
-        
+
                 const SizedBox(height: 16),
                 const Text(
                   "Jabatan",
@@ -387,7 +387,8 @@ class _PengajuanCutiState extends State<PengajuanCuti> {
                 const SizedBox(height: 16),
                 // Dropdown Hari Libur
                 const Text('Hari Libur/IM',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
                 DropdownButtonFormField<String>(
                   decoration: const InputDecoration(
@@ -451,7 +452,8 @@ class _PengajuanCutiState extends State<PengajuanCuti> {
                 const SizedBox(height: 16),
                 // Cuti Pada Tanggal
                 const Text('Cuti Pada Tanggal',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
                 GestureDetector(
                   onTap: () => _selectDate(context, true),
@@ -479,7 +481,8 @@ class _PengajuanCutiState extends State<PengajuanCuti> {
                 const SizedBox(height: 16),
                 // Sampai Tanggal
                 const Text('Sampai Tanggal',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
                 GestureDetector(
                   onTap: () => _selectDate(context, false),
@@ -526,7 +529,8 @@ class _PengajuanCutiState extends State<PengajuanCuti> {
                 const SizedBox(height: 16),
                 // Masuk Kerja Tanggal
                 const Text('Masuk Kerja Tanggal',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
                 TextField(
                   enabled: false,
@@ -593,7 +597,7 @@ class _PengajuanCutiState extends State<PengajuanCuti> {
                   title:
                       'Surat Kelahiran Anak/Photo copy Buku Nikah - ISTRI MELAHIRKAN"',
                 ),
-        
+
                 const SizedBox(height: 24),
                 // SizedBox(
                 //   // width: double.maxFinite,
@@ -615,13 +619,13 @@ class _PengajuanCutiState extends State<PengajuanCuti> {
                     shadowColor: const Color.fromARGB(55, 66, 164, 245),
                     elevation: 5,
                   ),
-        
+
                   // shadowColor.Colors.blackm
                   icon: const Icon(Icons.check_box),
                   label: const Text("Ajukan",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        
+
                   // child: const Text('Start Quiz'),
                 )
               ],
@@ -668,6 +672,16 @@ class _AttachmentCardState extends State<AttachmentCard> {
   //     });
   //   }
   // }
+  List<String> myList = []; // List kosong
+
+// void main() {
+//   if (myList.isNotEmpty) {
+//     print(myList[0]);
+//   } else {
+//     print('List kosong, tidak ada elemen untuk diakses.');
+//   }
+// }
+
 
   void _removeImage(int index) {
     setState(() {
@@ -785,7 +799,7 @@ class FullScreenImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.blue[800],
       appBar: AppBar(
         title: const Text(
           'Lihat Gambar',
@@ -795,7 +809,8 @@ class FullScreenImage extends StatelessWidget {
           ),
         ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white), // Mengubah warna ikon back menjadi putih
+          icon: const Icon(Icons.arrow_back,
+              color: Colors.white), // Mengubah warna ikon back menjadi putih
           onPressed: () {
             // Aksi saat ikon back ditekan
             Navigator.pop(context);
@@ -804,8 +819,17 @@ class FullScreenImage extends StatelessWidget {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.blue[800],
       ),
-      body: Center(
-        child: Image.file(image),
+      body: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
+          ),
+        ),
+        child: Center(
+          child: Image.file(image),
+        ),
       ),
     );
   }

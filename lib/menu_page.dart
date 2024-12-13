@@ -70,7 +70,7 @@ class _MenuPageState extends State<MenuPage> {
       appBar: AppBar(
         title: Center(
           child: Text(
-            'PT. ASKAR DASKA MANDALA BATAM',
+            'PT. ASKAR DASKA MANDALA',
             style: GoogleFonts.roboto(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -113,7 +113,7 @@ class _MenuPageState extends State<MenuPage> {
                   radius: 40,
                   backgroundColor: Colors.white,
                   backgroundImage: AssetImage(
-                      'assets/images/jancok.png'), // Tambahkan gambar di folder assets
+                      'assets/images/as.png'), // Tambahkan gambar di folder assets
                   // backgroundImage: AssetImage('images/user (3).png'),  // Tambahkan gambar di folder assets
                 ),
                 SizedBox(width: 16),
@@ -156,14 +156,14 @@ class _MenuPageState extends State<MenuPage> {
                 children: [
                   _buildMenuItem(
                       context,
-                      Icons.person,
+                      Icons.work,
                       "Cuti / Izin",
                       () => Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
                                   PengajuanCuti()))), // Navigasi ke halaman cuti/izin
-                  _buildMenuItem(context, Icons.money, "Slip Gaji", () {
+                  _buildMenuItem(context, Icons.receipt, "Slip Gaji", () {
                     // Tambahkan navigasi
                   }),
                   _buildMenuItem(context, Icons.calendar_today, "Absensi", () {
