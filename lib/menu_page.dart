@@ -70,7 +70,7 @@ class _MenuPageState extends State<MenuPage> {
       appBar: AppBar(
         title: Center(
           child: Text(
-            'PT. ASKAR DASKA MANDALA',
+            'PT. ASKAR DASKA MANDALA BATAM',
             style: GoogleFonts.roboto(
               fontSize: 20,
               fontWeight: FontWeight.bold,
