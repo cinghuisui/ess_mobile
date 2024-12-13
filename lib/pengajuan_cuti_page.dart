@@ -233,8 +233,11 @@ class _PengajuanCutiState extends State<PengajuanCuti> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: true,
+      backgroundColor: Colors.blue[800],
+      // backgroundColor: Colors.amber,
       appBar: AppBar(
+        // elevation: 5,
         title: const Text(
           "Pengajuan Cuti",
           style: TextStyle(
@@ -253,366 +256,376 @@ class _PengajuanCutiState extends State<PengajuanCuti> {
           },
         ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Nama Lengkap",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              TextFormField(
-                controller: _namaLengkapController,
-                decoration: InputDecoration(
-                  hintText: "Nama Lengkap",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0)),
-                  errorText: _errorNamaLengkap,
+      body: Container(
+        // padding: const EdgeInsets.symmetric(horizontal: 20),
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+            ),
+          ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Nama Lengkap",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'NIK/ID Card harus diisi';
-                  }
-                  return null;
-                },
-                inputFormatters: [
-                  UpperCaseTextFormatter(), // Formatter untuk huruf besar
-                ],
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                "NIK / ID Card",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              TextFormField(
-                controller: _nikController,
-                decoration: InputDecoration(
-                  hintText: "NIK/ID Card",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+                const SizedBox(height: 8),
+                TextFormField(
+                  controller: _namaLengkapController,
+                  decoration: InputDecoration(
+                    hintText: "Nama Lengkap",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0)),
+                    errorText: _errorNamaLengkap,
                   ),
-                  errorText: _errorNik,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'NIK/ID Card harus diisi';
+                    }
+                    return null;
+                  },
+                  inputFormatters: [
+                    UpperCaseTextFormatter(), // Formatter untuk huruf besar
+                  ],
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'NIK/ID Card harus diisi';
-                  }
-                  return null;
-                },
-                inputFormatters: [
-                  UpperCaseTextFormatter(), // Formatter untuk huruf besar
-                ],
-              ),
-
-              const SizedBox(height: 16),
-              const Text(
-                "Departemen/Bagian",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              DropdownButtonFormField<String>(
-                hint: const Text("-Pilih Departement-"),
-                value: selectedDepartement,
-                items: departement.map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (newValue) {
-                  setState(() {});
-                },
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+                const SizedBox(height: 16),
+                const Text(
+                  "NIK / ID Card",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Departement harus diisi';
-                  }
-                  return null;
-                },
-              ),
-
-              const SizedBox(height: 16),
-              const Text(
-                "Jabatan",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              DropdownButtonFormField<String>(
-                hint: const Text("-Pilih Jabatan-"),
-                value: selectedJabatan,
-                items: jabatan.map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (newValue) {
-                  setState(() {
-                    selectedJabatan = newValue;
-                  });
-                },
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Jabatan harus diisi';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              // Dropdown Hari Libur
-              const Text('Hari Libur/IM',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              DropdownButtonFormField<String>(
-                decoration: const InputDecoration(
-                  hintText: '-Pilih Hari-',
-                  border: OutlineInputBorder(),
-                ),
-                value: _selectedHariLibur,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    _selectedHariLibur = newValue;
-                    _calculateDays();
-                    _calculateMasukKerjaDate();
-                  });
-                },
-                items: _hariLiburOptions
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Hari Libur harus diisi';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                "Jenis Cuti",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              DropdownButtonFormField<String>(
-                hint: const Text("-Pilih Jenis Cuti-"),
-                value: selectedJenisCuti,
-                items: jenisCutiList.map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (newValue) {
-                  setState(() {
-                    selectedJenisCuti = newValue;
-                  });
-                },
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Jenis Cuit harus diisi';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              // Cuti Pada Tanggal
-              const Text('Cuti Pada Tanggal',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              GestureDetector(
-                onTap: () => _selectDate(context, true),
-                child: AbsorbPointer(
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: _startDate == null
-                          ? '-Pilih Tanggal-'
-                          : _dateFormat.format(_startDate!),
-                      suffixIcon: const Icon(
-                        Icons.calendar_today,
-                        color: Colors.blueAccent,
-                      ),
-                      border: const OutlineInputBorder(),
+                const SizedBox(height: 8),
+                TextFormField(
+                  controller: _nikController,
+                  decoration: InputDecoration(
+                    hintText: "NIK/ID Card",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
-                    validator: (value) {
-                      if (_startDate == null || _startDate!.isUtc) {
-                        return 'Tanggal harus diisi';
-                      }
-                      return null;
-                    },
+                    errorText: _errorNik,
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'NIK/ID Card harus diisi';
+                    }
+                    return null;
+                  },
+                  inputFormatters: [
+                    UpperCaseTextFormatter(), // Formatter untuk huruf besar
+                  ],
                 ),
-              ),
-              const SizedBox(height: 16),
-              // Sampai Tanggal
-              const Text('Sampai Tanggal',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              GestureDetector(
-                onTap: () => _selectDate(context, false),
-                child: AbsorbPointer(
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: _endDate == null
-                          ? '-Pilih Tanggal-'
-                          : _dateFormat.format(_endDate!),
-                      suffixIcon: const Icon(
-                        Icons.calendar_today,
-                        color: Colors.blueAccent,
-                      ),
-                      border: const OutlineInputBorder(),
+        
+                const SizedBox(height: 16),
+                const Text(
+                  "Departemen/Bagian",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                DropdownButtonFormField<String>(
+                  hint: const Text("-Pilih Departement-"),
+                  value: selectedDepartement,
+                  items: departement.map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (newValue) {
+                    setState(() {});
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
-                    validator: (value) {
-                      if (_endDate == null || _endDate!.isUtc) {
-                        return 'Tanggal harus diisi';
-                      }
-                      return null;
-                    },
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Departement harus diisi';
+                    }
+                    return null;
+                  },
+                ),
+        
+                const SizedBox(height: 16),
+                const Text(
+                  "Jabatan",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                DropdownButtonFormField<String>(
+                  hint: const Text("-Pilih Jabatan-"),
+                  value: selectedJabatan,
+                  items: jabatan.map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (newValue) {
+                    setState(() {
+                      selectedJabatan = newValue;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Jabatan harus diisi';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                // Dropdown Hari Libur
+                const Text('Hari Libur/IM',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                DropdownButtonFormField<String>(
+                  decoration: const InputDecoration(
+                    hintText: '-Pilih Hari-',
+                    border: OutlineInputBorder(),
+                  ),
+                  value: _selectedHariLibur,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _selectedHariLibur = newValue;
+                      _calculateDays();
+                      _calculateMasukKerjaDate();
+                    });
+                  },
+                  items: _hariLiburOptions
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Hari Libur harus diisi';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  "Jenis Cuti",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                DropdownButtonFormField<String>(
+                  hint: const Text("-Pilih Jenis Cuti-"),
+                  value: selectedJenisCuti,
+                  items: jenisCutiList.map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (newValue) {
+                    setState(() {
+                      selectedJenisCuti = newValue;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Jenis Cuit harus diisi';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                // Cuti Pada Tanggal
+                const Text('Cuti Pada Tanggal',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                GestureDetector(
+                  onTap: () => _selectDate(context, true),
+                  child: AbsorbPointer(
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        hintText: _startDate == null
+                            ? '-Pilih Tanggal-'
+                            : _dateFormat.format(_startDate!),
+                        suffixIcon: const Icon(
+                          Icons.calendar_today,
+                          color: Colors.blueAccent,
+                        ),
+                        border: const OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        if (_startDate == null || _startDate!.isUtc) {
+                          return 'Tanggal harus diisi';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              // Jumlah Cuti
-              const Text('Jumlah Cuti (Hari)',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  )),
-              const SizedBox(height: 8),
-              TextField(
-                enabled: false,
-                // controller: _jumlahCuti,
-                decoration: InputDecoration(
-                  hintText: _jumlahHariCuti == 0
-                      ? 'Jumlah Cuti Hari'
-                      : '$_jumlahHariCuti Hari',
-                  border: const OutlineInputBorder(),
-                  // errorText: _errorJumlahCuti
-                ),
-              ),
-              const SizedBox(height: 16),
-              // Masuk Kerja Tanggal
-              const Text('Masuk Kerja Tanggal',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              TextField(
-                enabled: false,
-                decoration: InputDecoration(
-                  hintText: _masukKerjaDate == null
-                      ? '-Pilih Tanggal-'
-                      : _dateFormat.format(_masukKerjaDate!),
-                  border: const OutlineInputBorder(),
-                  suffixIcon: const Icon(
-                    Icons.calendar_today,
-                    color: Colors.blueAccent,
+                const SizedBox(height: 16),
+                // Sampai Tanggal
+                const Text('Sampai Tanggal',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                GestureDetector(
+                  onTap: () => _selectDate(context, false),
+                  child: AbsorbPointer(
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        hintText: _endDate == null
+                            ? '-Pilih Tanggal-'
+                            : _dateFormat.format(_endDate!),
+                        suffixIcon: const Icon(
+                          Icons.calendar_today,
+                          color: Colors.blueAccent,
+                        ),
+                        border: const OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        if (_endDate == null || _endDate!.isUtc) {
+                          return 'Tanggal harus diisi';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                "Keterangan Cuti",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              TextFormField(
-                maxLines: 4,
-                controller: _keterangancutiController,
-                decoration: InputDecoration(
-                  hintText: "Keterangan Cuti",
-                  hintStyle: TextStyle(
-                      color: returnDate != null ? Colors.black : Colors.grey),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+                const SizedBox(height: 16),
+                // Jumlah Cuti
+                const Text('Jumlah Cuti (Hari)',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    )),
+                const SizedBox(height: 8),
+                TextField(
+                  enabled: false,
+                  // controller: _jumlahCuti,
+                  decoration: InputDecoration(
+                    hintText: _jumlahHariCuti == 0
+                        ? 'Jumlah Cuti Hari'
+                        : '$_jumlahHariCuti Hari',
+                    border: const OutlineInputBorder(),
+                    // errorText: _errorJumlahCuti
                   ),
-                  errorText: _errorKeteranganCuti,
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Keterangan Cuti harus diisi';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 30),
-              const Text(
-                'Lampiran Wajib:',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-              AttachmentCard(
-                title: 'Photo Copy Buku Nikah/KK - Menikah(3. Hk)',
-              ),
-              const SizedBox(height: 10),
-              AttachmentCard(
-                title: 'Photo copy Buku Nikah/KK-ANAK KANDUNG MENIKAH',
-              ),
-              const SizedBox(height: 10),
-              AttachmentCard(
-                title:
-                    'Surat Kematian/KK (Orang tua/Mertua/Istri/Suami/Menantu/Anak)',
-              ),
-              const SizedBox(height: 10),
-              AttachmentCard(
-                title: 'Surat Khitan Anak / Babtis',
-              ),
-              const SizedBox(height: 10),
-              AttachmentCard(
-                title:
-                    'Surat Kelahiran Anak/Photo copy Buku Nikah - ISTRI MELAHIRKAN"',
-              ),
-
-              const SizedBox(height: 24),
-              // SizedBox(
-              //   // width: double.maxFinite,
-              //   child: ElevatedButton(
-              //     onPressed: _submitForm,
-              //     style: ElevatedButton.styleFrom(
-              //       backgroundColor: Colors.blue[800], // Warna latar belakang tombol
-              //       foregroundColor: Colors.white, // Warna teks atau ikon
-              //       shadowColor: Colors.black, // Warna bayangan
-              //       elevation: 5, // Tinggi bayangan
-              //     ),
-              //     child: const Text('Ajukan'),
-              //   ),
-              // ),
-              OutlinedButton.icon(
-                onPressed: _submitForm,
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: Colors.blue[800],
-                  shadowColor: const Color.fromARGB(55, 66, 164, 245),
-                  elevation: 5,
+                const SizedBox(height: 16),
+                // Masuk Kerja Tanggal
+                const Text('Masuk Kerja Tanggal',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                TextField(
+                  enabled: false,
+                  decoration: InputDecoration(
+                    hintText: _masukKerjaDate == null
+                        ? '-Pilih Tanggal-'
+                        : _dateFormat.format(_masukKerjaDate!),
+                    border: const OutlineInputBorder(),
+                    suffixIcon: const Icon(
+                      Icons.calendar_today,
+                      color: Colors.blueAccent,
+                    ),
+                  ),
                 ),
-
-                // shadowColor.Colors.blackm
-                icon: const Icon(Icons.check_box),
-                label: const Text("Ajukan",
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-
-                // child: const Text('Start Quiz'),
-              )
-            ],
+                const SizedBox(height: 16),
+                const Text(
+                  "Keterangan Cuti",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                TextFormField(
+                  maxLines: 4,
+                  controller: _keterangancutiController,
+                  decoration: InputDecoration(
+                    hintText: "Keterangan Cuti",
+                    hintStyle: TextStyle(
+                        color: returnDate != null ? Colors.black : Colors.grey),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    errorText: _errorKeteranganCuti,
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Keterangan Cuti harus diisi';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 30),
+                const Text(
+                  'Lampiran Wajib:',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                AttachmentCard(
+                  title: 'Photo Copy Buku Nikah/KK - Menikah(3. Hk)',
+                ),
+                const SizedBox(height: 10),
+                AttachmentCard(
+                  title: 'Photo copy Buku Nikah/KK-ANAK KANDUNG MENIKAH',
+                ),
+                const SizedBox(height: 10),
+                AttachmentCard(
+                  title:
+                      'Surat Kematian/KK (Orang tua/Mertua/Istri/Suami/Menantu/Anak)',
+                ),
+                const SizedBox(height: 10),
+                AttachmentCard(
+                  title: 'Surat Khitan Anak / Babtis',
+                ),
+                const SizedBox(height: 10),
+                AttachmentCard(
+                  title:
+                      'Surat Kelahiran Anak/Photo copy Buku Nikah - ISTRI MELAHIRKAN"',
+                ),
+        
+                const SizedBox(height: 24),
+                // SizedBox(
+                //   // width: double.maxFinite,
+                //   child: ElevatedButton(
+                //     onPressed: _submitForm,
+                //     style: ElevatedButton.styleFrom(
+                //       backgroundColor: Colors.blue[800], // Warna latar belakang tombol
+                //       foregroundColor: Colors.white, // Warna teks atau ikon
+                //       shadowColor: Colors.black, // Warna bayangan
+                //       elevation: 5, // Tinggi bayangan
+                //     ),
+                //     child: const Text('Ajukan'),
+                //   ),
+                // ),
+                OutlinedButton.icon(
+                  onPressed: _submitForm,
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.blue[800],
+                    shadowColor: const Color.fromARGB(55, 66, 164, 245),
+                    elevation: 5,
+                  ),
+        
+                  // shadowColor.Colors.blackm
+                  icon: const Icon(Icons.check_box),
+                  label: const Text("Ajukan",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        
+                  // child: const Text('Start Quiz'),
+                )
+              ],
+            ),
           ),
         ),
       ),
