@@ -102,8 +102,14 @@ class _PengajuanCutiState extends State<PengajuanCuti> {
   ];
   final List<String> jenisCutiList = [
     "Cuti Tahunan",
-    "Cuti Sakit",
-    "Cuti Melahirkan"
+    "Cuti Ibadah Haji",
+    "Cuti Menikah",
+    "Cuti Pernikahan Anak",
+    "Cuti Mengkhitankan Anak",
+    "Cuti Membaptiskan Anak",
+    "Cuti Istri Melahirkan/Keguguran"
+    // "Cuti Suami/Istri, Orangtua/Mertua, Anak/Menantu Meninggal",
+    // "Anggota Keluarga Dalam Satu Rumah Meninggal"
   ];
   // Daftar hari libur nasional (contoh)
   final List<DateTime> _hariLiburNasional = [

@@ -150,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         MaterialPageRoute(builder: (context) => const MenuPage()),
                       );
                     },
-                    style: ElevatedButton.styleFrom(
+                    style: ElevatedButton.styleFrom(                                    
                       padding: const EdgeInsets.symmetric(
                         horizontal: 143.0, // Lebar tombol
                         vertical: 17.0, // Tinggi tombol
@@ -159,13 +159,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       backgroundColor:
-                          Colors.blue[800], // Warna latar belakang tombol
+                          Colors.blue[800], // Warna latar belakang tombol                      
                       foregroundColor: Colors.white, // Warna teks atau ikon
                       shadowColor: Colors.black, // Warna bayangan
-                      elevation: 5, // Tinggi bayangan
+                      elevation: 5, // Tinggi bayangan                      
                     ),
                     child: const Text(
-                      "Login",
+                      "L o g i n",
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),

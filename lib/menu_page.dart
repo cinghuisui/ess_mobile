@@ -1,5 +1,7 @@
 import 'dart:io';
 
+// import 'package:ess_mobile/riwayat_pengajuan.dart';
+import 'package:ess_mobile/riwayat_pengajuan_cuti.dart';
 import 'package:flutter/material.dart';
 import 'package:ess_mobile/pengajuan_cuti_page.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -162,32 +164,40 @@ class _MenuPageState extends State<MenuPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  PengajuanCuti()))), // Navigasi ke halaman cuti/izin
-                  _buildMenuItem(context, Icons.receipt, "Slip Gaji", () {
-                    // Tambahkan navigasi
-                  }),
+                                  const PengajuanCuti()))), // Navigasi ke halaman cuti/izin
+                  _buildMenuItem(
+                    context,
+                     Icons.receipt,
+                      "Riwayat Pengajuan Cuti",
+                       () => Navigator.push(
+                          context,
+                        MaterialPageRoute(
+                          builder: (context) => const RiwayatPengajuanCuti()))),
+                  // ) {
+                  //   // Tambahkan navigasi
+                  // }),
                   _buildMenuItem(context, Icons.calendar_today, "Absensi", () {
                     // Tambahkan navigasi
                   }),
-                  _buildMenuItem(context, Icons.warning, "Pelanggaran", () {
-                    // Tambahkan navigasi
-                  }),
-                  _buildMenuItem(
-                      context, Icons.shopping_cart, "Transaksi Belanja", () {
-                    // Tambahkan navigasi
-                  }),
-                  _buildMenuItem(context, Icons.update, "Update Data", () {
-                    // Tambahkan navigasi
-                  }),
-                  _buildMenuItem(context, Icons.lock, "OTP Transaksi", () {
-                    // Tambahkan navigasi
-                  }),
-                  _buildMenuItem(context, Icons.block, "Kosong", () {
-                    // Tambahkan navigasi
-                  }),
-                  _buildMenuItem(context, Icons.settings, "Pengaturan", () {
-                    // Tambahkan navigasi
-                  }),
+                  // _buildMenuItem(context, Icons.warning, "Pelanggaran", () {
+                  //   // Tambahkan navigasi
+                  // }),
+                  // _buildMenuItem(
+                  //     context, Icons.shopping_cart, "Transaksi Belanja", () {
+                  //   // Tambahkan navigasi
+                  // }),
+                  // _buildMenuItem(context, Icons.update, "Update Data", () {
+                  //   // Tambahkan navigasi
+                  // }),
+                  // _buildMenuItem(context, Icons.lock, "OTP Transaksi", () {
+                  //   // Tambahkan navigasi
+                  // }),
+                  // _buildMenuItem(context, Icons.block, "Kosong", () {
+                  //   // Tambahkan navigasi
+                  // }),
+                  // _buildMenuItem(context, Icons.settings, "Pengaturan", () {
+                  //   // Tambahkan navigasi
+                  // }),
                 ],
               ),
             ),
