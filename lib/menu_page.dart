@@ -172,7 +172,7 @@ class _MenuPageState extends State<MenuPage> {
                        () => Navigator.push(
                           context,
                         MaterialPageRoute(
-                          builder: (context) => const RiwayatPengajuanCuti()))),
+                          builder: (context) => const CutiRiwayatPage()))),
                   // ) {
                   //   // Tambahkan navigasi
                   // }),

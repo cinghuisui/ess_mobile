@@ -52,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen>
     _animationController.forward();
 
     // Navigate to the home page after a delay
-    Future.delayed(const Duration(seconds: 7), () {
+    Future.delayed(const Duration(seconds: 10), () {
       Navigator.pushReplacement(
         // ignore: use_build_context_synchronously
         context,
@@ -73,14 +73,18 @@ class _SplashScreenState extends State<SplashScreen>
       // backgroundColor: const Color.fromARGB(255, 21, 104, 171), // Background color of the splash screen
       body: Container(
         decoration: const BoxDecoration(
+          // image: DecorationImage(
+          //   image: AssetImage("assets/images/coconutoil.webp"), // Gambar dari folder assets
+          //   fit: BoxFit.cover, // Menyesuaikan gambar agar memenuhi layar
+          // ),
           gradient: LinearGradient(
             colors: [
               // Color.fromARGB(255, 16, 76, 204),
               // Color.fromARGB(244, 9, 174, 234),
               // Color.fromARGB(175, 158, 158, 158),
               // Color.fromARGB(92, 33, 149, 243),
-              Color.fromARGB(255, 33, 148, 242),
-              Color.fromARGB(255, 72, 128, 225),
+              Color.fromARGB(255, 8, 133, 236),
+              Color.fromARGB(255, 6, 59, 151),
             ],
           ),
         ),
@@ -106,6 +110,7 @@ class _SplashScreenState extends State<SplashScreen>
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,
+                    // color: Colors.white
                   ),
                   // style: TextStyle(
                   //   color: Colors.white,

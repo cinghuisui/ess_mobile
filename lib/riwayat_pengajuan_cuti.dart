@@ -1,21 +1,31 @@
+import 'package:ess_mobile/surat_cuti.dart';
 import 'package:flutter/material.dart';
 
-class RiwayatPengajuanCuti extends StatefulWidget {
-  const RiwayatPengajuanCuti({super.key});
-
-  @override
-  State<RiwayatPengajuanCuti> createState() => _RiwayatPengajuanCutiState();
+void main() {
+  runApp(const MyApp());
 }
 
-class _RiwayatPengajuanCutiState extends State<RiwayatPengajuanCuti> {
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: CutiRiwayatPage(),
+    );
+  }
+}
+
+class CutiRiwayatPage extends StatelessWidget {
+  const CutiRiwayatPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.blue[800],
-      // backgroundColor: Colors.amber,
       appBar: AppBar(
-        // elevation: 5,
+        backgroundColor: Colors.blue[800],
         title: const Text(
           "Riwayat Pengajuan Cuti",
           style: TextStyle(
@@ -23,10 +33,10 @@ class _RiwayatPengajuanCutiState extends State<RiwayatPengajuanCuti> {
             fontSize: 20, // Ukuran teks
           ),
         ),
-        backgroundColor: Colors.blue[800],
         leading: IconButton(
           icon: const Icon(
-            Icons.arrow_back,
+            // Icons.arrow_back,
+            Icons.chevron_left_rounded,size: 35,
             color: Colors.white,
           ),
           onPressed: () {
@@ -35,165 +45,138 @@ class _RiwayatPengajuanCutiState extends State<RiwayatPengajuanCuti> {
         ),
       ),
       body: Container(
+        width: double.infinity, // Mengisi lebar layar
+        height: double.infinity, // Mengisi tinggi layar
         decoration: const BoxDecoration(
-            color: Colors.white,
+          
+            // color: Color.fromARGB(255, 222, 203, 206),
+            image: DecorationImage(
+            image: AssetImage("assets/images/coconut.webp"), // Gambar dari folder assets
+            fit: BoxFit.cover, // Menyesuaikan gambar agar memenuhi layar
+          ),
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20.0),
               topRight: Radius.circular(20.0),
             ),
           ),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Tab Buttons
-              // Container(
-              //   color: Colors.grey[200],
-              //   child: Row(
-              //     children: [
-              //       Expanded(
-              //         child: ElevatedButton(
-              //           style: ElevatedButton.styleFrom(
-              //             elevation: 0,
-              //             backgroundColor: Colors.grey[200],
-              //           ),
-              //           onPressed: () {},
-              //           child: Text('Form Pengajuan Cuti', style: TextStyle(color: Colors.black)),
-              //         ),
-              //       ),
-              //       Expanded(
-              //         child: ElevatedButton(
-              //           style: ElevatedButton.styleFrom(
-              //             elevation: 0,
-              //             backgroundColor: Colors.blue[700],
-              //           ),
-              //           onPressed: () {},
-              //           child: Text('Riwayat Pengajuan', style: TextStyle(color: Colors.white)),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-        
-              // Informasi Cuti
-              Padding(
-                
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('Informasi Cuti',
-                        style:
-                            TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                    const SizedBox(height: 10),
-        
-                    Row(
-                      children: [
-                        _infoCard('Sisa Cuti', '0', Colors.blue),
-                        const SizedBox(width: 8),
-                        _infoCard('Superior 1', 'Sigit Susanto\nPimpinan Departement', Colors.grey),
-                        const SizedBox(width: 8),
-                        _infoCard('Superior 2', 'Said Yovina\nPimpinan Perusahaan', Colors.grey),
-                      ],
-                    ),
-        
-                    const SizedBox(height: 16),
-        
-                    // Detail Informasi
-                    _buildDetailField('Jenis Cuti', 'Cuti Tahunan'),
-                    _buildDetailField('Tanggal Cuti', '16-10-2024'),
-                    _buildDetailField('Sampai Tanggal', '22-10-2024'),
-                    _buildDetailField('Jumlah Cuti', '12'),
-                    
-                    // Status Approval
-                    // _buildStatusField('Status Approval', 'Menunggu Approval', Colors.yellow[700]!),
-                    _buildStatusField('Status Approval', 'Disetujui', Colors.green[400]!),
-                    // _buildStatusField('Status Approval', 'Tidak Disetujui', Colors.red[400]!),
-        
-                    // Keterangan Cuti
-                    _buildDetailField('Keterangan Cuti', 'Pulang Kampung'),
-                  ],
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.all(8.0),
+                children: [
+                  cutiCard(
+                    jenisCuti: "Cuti Tahunan",
+                    tanggalCuti: "16-10-2024",
+                    sampaiTanggal: "22-10-2024",
+                    jumlahCuti: "12",
+                    statusApproval: "Disetujui",
+                    statusColor: Colors.green,
+                    keterangan: "Traveling",
+                  ),
+                  cutiCard(
+                    jenisCuti: "Cuti Melahirkan",
+                    tanggalCuti: "16-10-2024",
+                    sampaiTanggal: "22-10-2024",
+                    jumlahCuti: "12",
+                    statusApproval: "Menunggu Approve",
+                    statusColor: Colors.orange,
+                    keterangan: "Traveling",
+                  ),
+                  cutiCard(
+                    jenisCuti: "Cuti Gajah",
+                    tanggalCuti: "16-10-2024",
+                    sampaiTanggal: "22-10-2024",
+                    jumlahCuti: "12",
+                    statusApproval: "Tidak Disetujui",
+                    statusColor: Colors.red,
+                    keterangan: "Traveling",
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  side: const BorderSide(color: Colors.green),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => PengajuanCutiScreen()),
+                      );
+                  // Aksi ketika tombol "Lihat Form" ditekan
+                },
+                child: const Text(
+                  "Lihat Form",
+                  style: TextStyle(color: Colors.green),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _infoCard(String title, String subtitle, Color color) {
-    return Expanded(
-      child: Card(
-        elevation: 2,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                subtitle,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 14,
-                    color: color,
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ),
+  Widget cutiCard({
+    required String jenisCuti,
+    required String tanggalCuti,
+    required String sampaiTanggal,
+    required String jumlahCuti,
+    required String statusApproval,
+    required Color statusColor,
+    required String keterangan,
+  }) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Colors.white70,
+        borderRadius: BorderRadius.circular(8.0),
       ),
-    );
-  }
-
-  Widget _buildDetailField(String title, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontSize: 14, color: Colors.black)),
-          const SizedBox(height: 4),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Text(value, style: const TextStyle(fontSize: 14)),
+          rowText("Jenis Cuti", jenisCuti),
+          rowText("Tanggal Cuti", tanggalCuti),
+          rowText("Sampai Tanggal", sampaiTanggal),
+          rowText("Jumlah Cuti", jumlahCuti),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Status Approval",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text(
+                statusApproval,
+                style: TextStyle(fontWeight: FontWeight.bold, color: statusColor),
+              ),
+            ],
           ),
+          rowText("Keterangan Cuti", keterangan),
         ],
       ),
     );
   }
 
-  Widget _buildStatusField(String title, String value, Color color) {
+  Widget rowText(String title, String value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title, style: TextStyle(fontSize: 14, color: Colors.grey[600])),
-          const SizedBox(height: 4),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Text(
-              value,
-              style: const TextStyle(fontSize: 14, color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
+          Text(
+            "$title :",
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
+          Text(value),
         ],
       ),
     );

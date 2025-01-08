@@ -254,7 +254,8 @@ class _PengajuanCutiState extends State<PengajuanCuti> {
         backgroundColor: Colors.blue[800],
         leading: IconButton(
           icon: const Icon(
-            Icons.arrow_back,
+            Icons.chevron_left_rounded,size: 35,
+            // Icons.arrow_back,
             color: Colors.white,
           ),
           onPressed: () {
@@ -724,6 +725,24 @@ class _AttachmentCardState extends State<AttachmentCard> {
     }
   }
 
+  Future<void> _pickImagee() async {
+    if (_isPickingImage) return; // Prevent multiple taps
+    setState(() {
+      _isPickingImage = true;
+    });
+
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _isPickingImage = false; // Re-enable the button
+    });
+
+    if (pickedFile != null) {
+      setState(() {
+        _images.add(File(pickedFile.path));
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -749,6 +768,10 @@ class _AttachmentCardState extends State<AttachmentCard> {
             icon: const Icon(Icons.camera_alt, color: Colors.black),
             onPressed: _pickImage,
           ),
+          IconButton(
+            icon: const Icon(Icons.photo, color: Colors.black),
+            onPressed: _pickImagee,
+          ),
           const SizedBox(height: 10),
           Row(
             children: _images.asMap().entries.map((entry) {
@@ -765,8 +788,8 @@ class _AttachmentCardState extends State<AttachmentCard> {
                         onTap: () => _viewImage(image),
                         child: Image.file(
                           image,
-                          width: 100,
-                          height: 100,
+                          width: 93,
+                          height: 93,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -815,7 +838,7 @@ class FullScreenImage extends StatelessWidget {
           ),
         ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back,
+          icon: const Icon(Icons.chevron_left_rounded,size: 35,
               color: Colors.white), // Mengubah warna ikon back menjadi putih
           onPressed: () {
             // Aksi saat ikon back ditekan

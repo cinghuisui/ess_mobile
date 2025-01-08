@@ -152,8 +152,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     style: ElevatedButton.styleFrom(                                    
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 143.0, // Lebar tombol
-                        vertical: 17.0, // Tinggi tombol
+                        horizontal: 130, // Lebar tombol
+                        vertical: 17, // Tinggi tombol
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -167,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: const Text(
                       "L o g i n",
                       style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                     ),
                   ),
 
